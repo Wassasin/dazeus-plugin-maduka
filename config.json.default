@@ -2,5 +2,6 @@
   "prefix": "",
   "username": "",
   "password": "",
-  "debug": true
+  "debug": true,
+  "language": "nl-nl"
 }
