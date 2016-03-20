@@ -1,6 +1,8 @@
 import request from 'request';
 import assert from 'assert';
 import _ from 'lodash';
+import numeral from 'numeral';
+import util from 'util';
 
 export default class Api {
   constructor() {
@@ -15,6 +17,10 @@ export default class Api {
       available: product.availability.orderable,
       price: product.priceLabel.now
     };
+  }
+
+  printProduct(product) {
+    return util.format('%s  (%s; € %s, %s) ', product.name, product.unit, numeral(product.price).format('0,00'), result.id);
   }
 
   login(username, password, callback) {
