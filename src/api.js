@@ -101,7 +101,7 @@ export default class Api {
           },
           body: {
             quantity: 0,
-            id: shoppinglistId, //???
+            id: shoppinglistId
           }
         },
         (error, response, body) => {
@@ -122,7 +122,7 @@ export default class Api {
             type: "PRODUCT",
             item: {id: id},
             quantity: quantity,
-            originCode: "BCL", //???
+            originCode: "BCL" //???
           }
         },
         (error, response, body) => {
