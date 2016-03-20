@@ -65,27 +65,18 @@ export default class Api {
         });
   }
 
-  list(callback) {
-    return this.browser.get("https://www.ah.nl/service/rest/mijnlijst",
+  list(listId, callback) {
+    return this.browser.get("http://www.ah.nl/service/rest/shoppinglists/"+listId,
         (error, response, body) => {
           assert(!error & response.statusCode === 200);
 
-          let lanes = JSON.parse(body)._embedded.lanes;
-          let shoppingLane = _.find(lanes, x => x.type === 'ShoppingListLane');
-
-          if(shoppingLane === undefined) {
-            callback([]);
-            return;
-          }
-
           callback(
-            _.chain(shoppingLane._embedded.items)
-              .filter(x => x.type === 'Product')
+            _.chain(JSON.parse(body).items._embedded.items)
+              .filter(x => x.type === 'PRODUCT')
               .map(x => {
-                let product = this.parseProduct(x._embedded.product);
-                product.quantity = x._embedded.listItem.quantity;
-                product.shoppinglistId = _.last(x._embedded.listItem._links.delete.href.split(/\//g));
-                assert(product.shoppinglistId !== undefined);
+                let product = this.parseProduct(x.item);
+                product.quantity = x.quantity;
+                product.shoppinglistId = x.id;
                 return product;
             }).value()
           );

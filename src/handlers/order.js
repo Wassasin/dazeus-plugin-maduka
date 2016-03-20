@@ -6,7 +6,7 @@ import _ from 'lodash';
 export default function order(args, origin, reply) {
   let api = new Api();
   api.login(config.username, config.password, () => {
-    api.list(products => {
+    api.list(0, products => {
       if(products.length > 0) {
         reply("Removing " + products.length + " products from prior list...");
       }
