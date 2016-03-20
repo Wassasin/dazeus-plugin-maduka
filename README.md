@@ -28,6 +28,10 @@ This command adds the item with index [index] on the search list to the local li
 syntax: `}ah remove [index]`  
 Removes item with index [index] from the local list.
 
+### Import
+syntax: `}ah import [num]`  
+Imports the shopping list with id [num] into the local list.
+
 ### List
 syntax: `}ah list`  
 Display the current list of items to be committed to the shopping list.
