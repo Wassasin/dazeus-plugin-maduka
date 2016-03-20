@@ -31,7 +31,8 @@ export function getResult(origin, item) {
 export function getResultCount(origin) {
   let [network, channel, user] = origin;
   if (latest_searches[network] && latest_searches[network][channel]) {
-    return latest_searches[network][channel].length;
+    let results = latest_searches[network][channel];
+    return results.length ? results.length : 0;
   }
 
   return 0;

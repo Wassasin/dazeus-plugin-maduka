@@ -21,3 +21,11 @@ export function getList() {
 export function clearList() {
   store.setItemSync(ITEM_LIST, []);
 }
+
+export function setFlag(name, value) {
+  store.setItemSync('flag__' + name, value);
+}
+
+export function getFlag(name, def) {
+  return defaultVal(store.getItemSync('flag__' + name), def);
+}
