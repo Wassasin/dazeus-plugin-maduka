@@ -41,7 +41,7 @@ export default function handle (data, args, reply) {
         _.chain(products)
           .slice(0, 10)
           .map(x => x.id + " " + x.price + " " + x.name + " (" + x.unit + ")")
-          .each(reply).value();
+          .each(x => reply(x)).value();
       });
       break;
 
