@@ -17,31 +17,31 @@ import remove from './handlers/remove';
 import search from './handlers/search';
 
 
-export default function handle (data, args, reply) {
+export default function handle (data, args, origin, reply) {
   let command = args.length > 0 ? args.shift() : '';
   switch (command) {
     case 'list':
-      list(args, reply);
+      list(args, origin, reply);
       break;
 
     case 'add':
-      add(args, reply);
+      add(args, origin, reply);
       break;
 
     case 'remove':
-      remove(args, reply);
+      remove(args, origin, reply);
       break;
 
     case 'clear':
-      clear(args, reply);
+      clear(args, origin, reply);
       break;
 
     case 'order':
-      order(args, reply);
+      order(args, origin, reply);
       break;
 
     case 'search':
-      search(args, reply);
+      search(args, origin, reply);
       break;
 
     default:

@@ -2,7 +2,7 @@ import * as storage from '../storage';
 import Api from '../api';
 import _ from 'lodash';
 
-export default function search(args, reply) {
+export default function search(args, origin, reply) {
   let api = new Api();
   let what = args.join(' ');
   api.search(what).then(products => {

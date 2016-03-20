@@ -16,6 +16,6 @@ let client = dazeus.connect(options, () => {
     let responder = (message, highlight=false) => {
       client.reply(network, channel, user, config.prefix + message, highlight);
     };
-    handle(str, args, responder);
+    handle(str, args, [network, channel, user], responder);
   });
 });
