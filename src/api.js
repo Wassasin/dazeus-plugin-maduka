@@ -2,6 +2,8 @@ import request from 'request';
 import assert from 'assert';
 import _ from 'lodash';
 
+//require('request-debug')(request);
+
 export default class Api {
   constructor() {
     this.browser = request.defaults({jar: true});;
@@ -40,8 +42,7 @@ export default class Api {
   }
 
   search(what, callback) {
-    console.log('Search:', what);
-    return this.browser.get('http://www.ah.nl/service/rest/zoeken?rq='+what,
+    return this.browser.get('https://www.ah.nl/service/rest/zoeken?rq='+what,
         (error, response, body) => {
           assert(!error & response.statusCode === 200);
 
@@ -64,9 +65,8 @@ export default class Api {
         });
   }
 
-  shoppinglist(callback) {
-    console.log('Shopping list');
-    return this.browser.get("http://www.ah.nl/service/rest/mijnlijst",
+  list(callback) {
+    return this.browser.get("https://www.ah.nl/service/rest/mijnlijst",
         (error, response, body) => {
           assert(!error & response.statusCode === 200);
 
@@ -84,9 +84,53 @@ export default class Api {
               .map(x => {
                 let product = this.parseProduct(x._embedded.product);
                 product.quantity = x._embedded.listItem.quantity;
+                product.shoppinglistId = _.last(x._embedded.listItem._links.delete.href.split(/\//g));
+                assert(product.shoppinglistId !== undefined);
                 return product;
             }).value()
           );
+        });
+  }
+
+  deleteItem(shoppinglistId, callback) {
+    console.log("Delete item: "+shoppinglistId);
+    return this.browser.put(
+        {
+          url: "http://www.ah.nl/service/rest/shoppinglists/0/items/"+shoppinglistId,
+          json: true,
+          headers: {
+            "Content-Type": "application/json-patch+json"
+          },
+          body: {
+            quantity: 0,
+            id: shoppinglistId, //???
+          }
+        },
+        (error, response, body) => {
+          console.log("HTTP " + shoppinglistId + " " + response.statusCode);
+          assert(!error & response.statusCode === 200);
+          callback();
+        });
+  }
+
+  addQuantity(id, quantity, callback) {
+    return this.browser.post(
+        {
+          url: "https://www.ah.nl/service/rest/shoppinglists/0/items",
+          json: true,
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: {
+            type: "PRODUCT",
+            item: {id: id},
+            quantity: quantity,
+            originCode: "BCL", //???
+          }
+        },
+        (error, response, body) => {
+          assert(!error & response.statusCode === 200);
+          callback();
         });
   }
 };
