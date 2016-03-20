@@ -40,6 +40,8 @@ export default function handle (data, args, origin, reply) {
     case 'order':
       if (storage.getFlag('order', true)) {
         order(args, origin, reply);
+      } else {
+        reply("Order disabled, use flag to enable");
       }
       break;
 
