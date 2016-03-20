@@ -14,7 +14,7 @@ export default function search(args, origin, reply) {
     if(products.length > 10) {
       reply("Showing 10 of " + products.length + " products...");
     } else {
-      reply("Showing " + products.length + " products...");
+      reply("Showing " + products.length + " product(s)...");
     }
 
     setSearch(origin, products);

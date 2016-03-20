@@ -4,6 +4,7 @@ import util from 'util';
 import numeral from 'numeral';
 import named_indices from '../named_index';
 import _ from 'lodash';
+import {printProduct} from '../util';
 
 export default function add(args, origin, reply) {
   if (args.length === 0) {
@@ -12,6 +13,20 @@ export default function add(args, origin, reply) {
   }
 
   let index = args[0];
+
+  // resolve amount and index to the correct item
+  let amount = 1;
+  if (args.length > 2 && args[1] === 'of') {
+    index = args[2];
+    amount = args[0];
+    if (_.isNumber(named_indices[amount])) {
+      amount = named_indices[amount];
+    } else {
+      amount = parseInt(args[0], 10);
+    }
+  }
+
+  // resolve index
   if (_.isNumber(named_indices[index])) {
     index = named_indices[index];
   } else {
@@ -24,14 +39,11 @@ export default function add(args, origin, reply) {
   }
 
   let total = getResultCount(origin);
-
-  // support negative indexes
-
-
   let result = getResult(origin, index);
   if (result) {
+    result.amount = amount;
     storage.addToList(result);
-    reply(util.format("Added %s (%s; € %s) to list", result.name, result.unit, numeral(result.price).format('0,00')))
+    reply(util.format("Added %s to list", printProduct(result)));
   } else if (total > 0) {
     reply(util.format("Could not find a result at position %s, we only have %s things to choose from", index + 1, total));
   } else {
