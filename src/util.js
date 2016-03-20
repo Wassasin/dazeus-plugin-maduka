@@ -5,7 +5,7 @@ export function printProduct(product) {
   if (product.amount) {
     return util.format(
       '%sx %s (%s; %s)',
-      product.amount,
+      product.quantity,
       product.name,
       product.unit,
       numeral(product.price).format('$0.00')

@@ -15,14 +15,14 @@ export default function add(args, origin, reply) {
   let index = args[0];
 
   // resolve amount and index to the correct item
-  let amount = 1;
+  let quantity = 1;
   if (args.length > 2 && args[1] === 'of') {
     index = args[2];
-    amount = args[0];
-    if (_.isNumber(named_indices[amount])) {
-      amount = named_indices[amount];
+    quantity = args[0];
+    if (_.isNumber(named_indices[quantity])) {
+      quantity = named_indices[quantity];
     } else {
-      amount = parseInt(args[0], 10);
+      quantity = parseInt(args[0], 10);
     }
   }
 
@@ -41,7 +41,7 @@ export default function add(args, origin, reply) {
   let total = getResultCount(origin);
   let result = getResult(origin, index);
   if (result) {
-    result.amount = amount;
+    result.quantity = quantity;
     storage.addToList(result);
     reply(util.format("Added %s to list", printProduct(result)));
   } else if (total > 0) {
