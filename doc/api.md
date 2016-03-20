@@ -1,4 +1,34 @@
 # Lijst van API calls op Albert
+Als hieronder er geen HTTP-request-type bij staat (GET, POST, PUT), ga dan uit van GET.
+
+## Login
+```
+https://www.ah.nl/mijn/inloggen/basis
+POST
+userName:<EMAIL>
+password:<PASSWORD>
+rememberUser:true
+```
+Vervolgens komt er een javascript-redirect. (met misschien wat cookie-manipulatie in javascript)
+
+```
+https://www.ah.nl/mijn/ingelogdSso
+```
+Vervolgens komt er nog een javascript-redirect.
+
+```
+https://www.ah.nl/mijn/ingelogdSso
+GET
+c1:ahold_sso_status,-1,<KNIP>
+c2:ahold_presumed_member_no,365,<KNIP>
+nocache:1458471540549
+```
+En zijn we ingelogd!
+
+```
+https://www.ah.nl/mijn/ingelogd
+```
+
 ## Zoek naar "wortel"
 ```
 http://www.ah.nl/service/rest/zoeken?rq=wortel
