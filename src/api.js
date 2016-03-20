@@ -1,8 +1,6 @@
 import request from 'request';
 import assert from 'assert';
 import _ from 'lodash';
-import numeral from 'numeral';
-import util from 'util';
 
 export default class Api {
   constructor() {
