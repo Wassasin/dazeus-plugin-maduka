@@ -4,7 +4,7 @@ import util from 'util';
 import _ from 'lodash';
 import numeral from 'numeral';
 
-const MAX_MESSAGE_LEN = 500;
+const MAX_MESSAGE_LEN = 400;
 
 export default function list(args, origin, reply) {
   let messages = [];
