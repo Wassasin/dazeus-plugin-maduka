@@ -1,5 +1,6 @@
 import storage from '../storage';
 import Api from '../api';
+import _ from 'lodash';
 
 export default function search(args, reply) {
   let api = new Api();
