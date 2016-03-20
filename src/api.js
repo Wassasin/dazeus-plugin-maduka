@@ -35,7 +35,6 @@ export default class Api {
           this.browser.get('https://www.ah.nl/mijn/ingelogdSso',
             (error, response, body) => {
               assert(!error & response.statusCode === 200);
-              console.log("Logged in for " + username);
               callback();
             });
         });
@@ -93,7 +92,6 @@ export default class Api {
   }
 
   deleteItem(shoppinglistId, callback) {
-    console.log("Delete item: "+shoppinglistId);
     return this.browser.put(
         {
           url: "http://www.ah.nl/service/rest/shoppinglists/0/items/"+shoppinglistId,
@@ -107,7 +105,6 @@ export default class Api {
           }
         },
         (error, response, body) => {
-          console.log("HTTP " + shoppinglistId + " " + response.statusCode);
           assert(!error & response.statusCode === 200);
           callback();
         });
