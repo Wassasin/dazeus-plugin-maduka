@@ -12,7 +12,8 @@ export default function importlist(args, origin, reply) {
 
   api.login(config.username, config.password, () => {
     api.listLists(list => {
-      let candidate = _.find(list, x => x.name == args[0]);
+      let candidate = _.find(list, x => x.name === listName);
+
       if(candidate === undefined) {
         reply("List " + listName + " not found");
         return;
