@@ -3,6 +3,7 @@ import Api from '../api';
 import _ from 'lodash';
 import {setSearch} from '../searches';
 import {printProduct} from '../util';
+import util from 'util';
 
 export default function search(args, origin, reply) {
   let api = new Api();
@@ -22,7 +23,7 @@ export default function search(args, origin, reply) {
 
     _.chain(products)
       .slice(0, 10)
-      .map(x => printProduct(x))
+      .map((x, idx) => util.format("[%s] %s", idx + 1, printProduct(x)))
       .each(x => reply(x))
       .value();
   });

@@ -6,7 +6,6 @@ export function printProduct(product) {
     '%s (%s; %s)',
     product.name,
     product.unit,
-    numeral(product.price).format('$ 0.00'),
-    product.id
+    numeral(product.price).format('$ 0.00')
   );
 }
