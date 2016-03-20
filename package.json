@@ -1,0 +1,25 @@
+{
+  "name": "dazeus-plugin-maduka",
+  "version": "1.0.0",
+  "description": "IRC interface for the Albert Heijn inventory and ordering system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wassasin/dazeus-plugin-maduka.git"
+  },
+  "keywords": [
+    "dazeus"
+  ],
+  "author": "",
+  "license": "Beerware",
+  "bugs": {
+    "url": "https://github.com/Wassasin/dazeus-plugin-maduka/issues"
+  },
+  "homepage": "https://github.com/Wassasin/dazeus-plugin-maduka#readme",
+  "dependencies": {
+    "dazeus": "^0.7.1"
+  }
+}
