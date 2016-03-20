@@ -29,3 +29,13 @@ export function setFlag(name, value) {
 export function getFlag(name, def) {
   return defaultVal(store.getItemSync('flag__' + name), def);
 }
+
+export function removeFromList(index) {
+  let items = defaultVal(store.getItemSync(ITEM_LIST), []);
+
+  if (items.length > index) {
+    items.splice(index, 1);
+  }
+
+  store.setItemSync(ITEM_LIST, items);
+}
