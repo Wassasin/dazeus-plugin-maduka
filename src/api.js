@@ -36,7 +36,6 @@ export default class Api {
           this.browser.get('https://www.ah.nl/mijn/ingelogdSso',
             (error, response, body) => {
               assert(!error & response.statusCode === 200);
-              console.log("Logged in for " + username);
               callback();
             });
         });

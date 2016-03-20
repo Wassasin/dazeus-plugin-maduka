@@ -20,7 +20,6 @@ export default function order(args, origin, reply) {
       ).then(
         () => {
           let list = storage.getList();
-          console.log(list);
           Promise.all(_.map(list, x => {
             return new Promise((resolve, reject) => {
               api.addQuantity(x.id, x.quantity, resolve);
