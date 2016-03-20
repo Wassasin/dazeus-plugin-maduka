@@ -34,8 +34,10 @@ export function removeFromList(index) {
   let items = defaultVal(store.getItemSync(ITEM_LIST), []);
 
   if (items.length > index) {
-    items.splice(index, 1);
+    let removed = items.splice(index, 1);
+    store.setItemSync(ITEM_LIST, items);
+    return removed[0];
   }
 
-  store.setItemSync(ITEM_LIST, items);
+  return null;
 }
