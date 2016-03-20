@@ -20,11 +20,12 @@
     "babel-register": "^6.7.2",
     "dazeus": "^0.7.1",
     "dazeus-util": "^0.7.0",
-    "gulp-nodemon": "^2.0.6",
     "lodash": "^4.6.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-shell": "^0.5.2"
+    "gulp-shell": "^0.5.2",
+    "gulp-nodemon": "^2.0.6",
+    "nodemon": "^1.9.1"
   }
 }
