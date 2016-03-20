@@ -40,4 +40,35 @@ export default class Api {
           .map(x => this.parseProduct(x._embedded.product)).value();
       });
   }
+
+  shoppinglist() {
+    console.log('Shopping list');
+    return this.browser.fetch("http://www.ah.nl/service/rest/mijnlijst")
+      .then(function(response) {
+        console.log("Status code:", response.status);
+        assert(response.status === 200);
+
+        return response.text();
+      })
+      .then(text => {
+        let lanes = JSON.parse(text)._embedded.lanes;
+        let shoppingLane = _.find(lanes, x => x.type === 'ShoppingLane');
+
+        if(shoppingLane === undefined) {
+          assert("Shopping list empty or not logged in")
+          return [];
+        }
+
+        let items = shoppingLane._embedded.items;
+        let quantity = items._embedded.listItem.quantity;
+
+        return _.chain(items)
+          .filter(x => x.type === 'Product')
+          .map(x => {
+              this.parseProduct(x._embedded.product).value();
+              this.quantity = quantity.value();
+            });
+      });
+  }
+
 };
