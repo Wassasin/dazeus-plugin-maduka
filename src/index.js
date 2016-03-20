@@ -3,6 +3,9 @@ import * as dazeus_util from 'dazeus-util';
 import _ from 'lodash';
 import handle from './handler';
 import config from '../config';
+import storage from 'node-persist';
+
+storage.initSync();
 
 let argv = dazeus_util.yargs().argv;
 dazeus_util.help(argv);

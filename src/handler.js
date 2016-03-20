@@ -7,14 +7,18 @@
 
 import Api from './api';
 import _ from 'lodash';
+import * as storage from './storage';
+
 
 export default function handle (data, args, reply) {
   let command = args.length > 0 ? args.shift() : '';
   switch (command) {
     case 'list':
+      reply("Currently listing: " + storage.getList().join(', '));
       break;
 
     case 'add':
+      storage.addToList(args.join(' '));
       break;
 
     case 'remove':
