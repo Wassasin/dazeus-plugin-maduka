@@ -2,7 +2,7 @@ import util from 'util';
 import numeral from 'numeral';
 
 export function printProduct(product) {
-  if (product.amount) {
+  if (product.quantity) {
     return util.format(
       '%sx %s (%s; %s%s)',
       product.quantity,
