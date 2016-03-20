@@ -10,7 +10,19 @@ function defaultVal(val, def) {
 export function addToList(item) {
   let items = defaultVal(store.getItemSync(ITEM_LIST), []);
 
-  items.push(item);
+  let found = false;
+  items = _.map(items, x => {
+    if(x.id === item.id) {
+      x.quantity += item.quantity;
+      found = true;
+    }
+    return x;
+  });
+
+  if(!found) {
+    items.push(item);
+  }
+
   store.setItemSync(ITEM_LIST, items);
 }
 
