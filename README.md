@@ -6,4 +6,5 @@ Start the project with `bin/gulp run` or run the plugin directly using
 `node index.js` in the root of the project.
 
 To watch for changes and automatically restart the plugin when a change in the
-sources occurs use `bin/gulp watch`
+sources occurs use `bin/gulp watch`. To optionally pass command line arguments
+use the alternative `bin/watch`.
