@@ -84,7 +84,7 @@ export default function handle (data, args, origin, reply) {
 
 function help(reply) {
   reply("Use '}ah search (term)' to search for items on the AH website. Add items from the search list to the local list via '}ah add (index)'. Use '}ah list' to display the local list. '}ah remove (index)' removes an item from the local list.");
-  reply("'}ah order' replaces the shopping list of the user in config.json with the local list of items. '}ah clear' empties the local list. '}ah import (num) imports the shopping list labeled (num) into the local list.")
+  reply("'}ah order' replaces the shopping list of the user in config.json with the local list of items and provides an order link. '}ah clear' empties the local list. '}ah import (num) imports the shopping list labeled (num) into the local list.")
 }
 
 function helpAfterUnknown(reply) {
