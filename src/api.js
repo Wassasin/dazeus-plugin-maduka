@@ -93,7 +93,6 @@ export default class Api {
   }
 
   deleteItem(shoppinglistId, callback) {
-    console.log("Delete item: "+shoppinglistId);
     return this.browser.put(
         {
           url: "http://www.ah.nl/service/rest/shoppinglists/0/items/"+shoppinglistId,
@@ -103,11 +102,10 @@ export default class Api {
           },
           body: {
             quantity: 0,
-            id: shoppinglistId, //???
+            id: shoppinglistId
           }
         },
         (error, response, body) => {
-          console.log("HTTP " + shoppinglistId + " " + response.statusCode);
           assert(!error & response.statusCode === 200);
           callback();
         });
@@ -125,7 +123,7 @@ export default class Api {
             type: "PRODUCT",
             item: {id: id},
             quantity: quantity,
-            originCode: "BCL", //???
+            originCode: "BCL" //???
           }
         },
         (error, response, body) => {
