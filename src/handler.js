@@ -17,6 +17,7 @@ import list from './handlers/list';
 import order from './handlers/order';
 import remove from './handlers/remove';
 import search from './handlers/search';
+import importlist from './handlers/import';
 import {disable, enable} from './handlers/flag';
 
 export default function handle (data, args, origin, reply) {
@@ -50,6 +51,10 @@ export default function handle (data, args, origin, reply) {
 
     case 'search':
       search(args, origin, reply);
+      break;
+
+    case 'import':
+      importlist(args, origin, reply);
       break;
 
     case 'help':
