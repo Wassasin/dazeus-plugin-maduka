@@ -24,6 +24,7 @@
     "moment": "^2.12.0",
     "node-persist": "0.0.10",
     "numeral": "^1.5.3",
+    "request": "^2.69.0",
     "zombie": "^4.2.1"
   },
   "devDependencies": {
