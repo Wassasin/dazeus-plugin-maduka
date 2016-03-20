@@ -1,5 +1,6 @@
 {
   "prefix": "",
   "username": "",
-  "password": ""
+  "password": "",
+  "debug": true
 }

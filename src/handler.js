@@ -17,9 +17,12 @@ import list from './handlers/list';
 import order from './handlers/order';
 import remove from './handlers/remove';
 import search from './handlers/search';
+import {disable, enable} from './handlers/flag';
 
 export default function handle (data, args, origin, reply) {
   let command = args.length > 0 ? args.shift() : '';
+
+  // switch over available commands or display default help
   switch (command) {
     case 'list':
       list(args, origin, reply);
@@ -49,20 +52,35 @@ export default function handle (data, args, origin, reply) {
       search(args, origin, reply);
       break;
 
-    case 'disable':
-      if (config.username === args[1]) {
-        storage.setFlag(args[0], false);
-        reply("Disabled flag " + args[0]);
-      }
+    case 'help':
+      help(reply);
       break;
 
-    case 'enable':
-      if (config.username === args[1]) {
-        storage.setFlag(args[0], enable);
-        reply("Enabled flag " + args[0]);
-      }
-
     default:
-      reply("Unknown command");
+      // list of debug commands
+      if (config.debug) {
+        switch (command) {
+          case 'disable':
+            disable(args, origin, reply);
+            break;
+
+          case 'enable':
+            enable(args, origin, reply);
+            break;
+
+          default:
+            helpAfterUnknown(reply);
+        }
+      } else {
+        helpAfterUnknown(reply);
+      }
   }
+}
+
+function help(reply) {
+  reply("[TODO] Implement help");
+}
+
+function helpAfterUnknown(reply) {
+  reply("Unkown command");
 }
