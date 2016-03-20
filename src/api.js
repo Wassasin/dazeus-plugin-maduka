@@ -60,10 +60,14 @@ export default class Api {
         }
 
         let items = shoppingLane._embedded.items;
+        let quantity = items._embedded.listItem.quantity;
 
         return _.chain(items)
           .filter(x => x.type === 'Product')
-          .map(x => this.parseProduct(x._embedded.product)).value();
+          .map(x => {
+              this.parseProduct(x._embedded.product).value();
+              this.quantity = quantity.value();
+            });
       });
   }
 
