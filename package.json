@@ -20,7 +20,8 @@
     "babel-register": "^6.7.2",
     "dazeus": "^0.7.1",
     "dazeus-util": "^0.7.0",
-    "lodash": "^4.6.1"
+    "lodash": "^4.6.1",
+    "zombie": "^4.2.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

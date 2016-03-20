@@ -5,8 +5,10 @@
 // }ah order
 // }ah search [query]
 
+import Api from './api';
+
 export default function handle (data, args, reply) {
-  let command = args.length > 0 ? args[0] : '';
+  let command = args.length > 0 ? args.shift() : '';
   switch (command) {
     case 'list':
       break;
@@ -24,6 +26,11 @@ export default function handle (data, args, reply) {
       break;
 
     case 'search':
+      let api = new Api();
+      let what = args.join(' ');
+      api.search(what).then((products) => {
+        console.log(products);
+      });
       break;
 
     default:
