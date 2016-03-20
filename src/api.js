@@ -28,7 +28,12 @@ export default class Api {
       })
       .then(text => {
         let lanes = JSON.parse(text)._embedded.lanes;
-        let items = _.find(lanes, x => x.type === 'SearchLane')._embedded.items;
+        let searchLane = _.find(lanes, x => x.type === 'SearchLane');
+
+        if(searchLane === undefined)
+          return [];
+
+        let items = searchLane._embedded.items;
 
         return _.chain(items)
           .filter(x => x.type === 'Product')
