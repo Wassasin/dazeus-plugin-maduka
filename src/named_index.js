@@ -1,0 +1,22 @@
+export default {
+  "first": 0,
+  "second": 1,
+  "third": 2,
+  "fourth": 3,
+  "fifth": 4,
+  "sixth": 5,
+  "seventh": 6,
+  "eight": 7,
+  "ninth": 8,
+  "tenth": 9,
+  "one": 0,
+  "two": 1,
+  "three": 2,
+  "four": 3,
+  "five": 4,
+  "six": 5,
+  "seven": 6,
+  "eight": 7,
+  "nine": 8,
+  "ten": 9
+};

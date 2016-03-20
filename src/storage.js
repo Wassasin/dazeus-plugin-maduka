@@ -17,3 +17,7 @@ export function addToList(item) {
 export function getList() {
   return defaultVal(store.getItemSync(ITEM_LIST), []);
 }
+
+export function clearList() {
+  store.setItemSync(ITEM_LIST, []);
+}

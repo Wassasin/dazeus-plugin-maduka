@@ -1,6 +1,7 @@
 import * as storage from '../storage';
 import Api from '../api';
 import _ from 'lodash';
+import {setSearch} from '../searches';
 
 export default function search(args, origin, reply) {
   let api = new Api();
@@ -14,9 +15,12 @@ export default function search(args, origin, reply) {
       reply("Showing " + products.length + " products...");
     }
 
+    setSearch(origin, products);
+
     _.chain(products)
       .slice(0, 10)
       .map(x => x.id + " " + x.price + " " + x.name + " (" + x.unit + ")")
-      .each(x => reply(x)).value();
+      .each(x => reply(x))
+      .value();
   });
 }
