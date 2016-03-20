@@ -1,5 +1,6 @@
 import request from 'request';
 import assert from 'assert';
+import jsdom from 'jsdom';
 import _ from 'lodash';
 
 //require('request-debug')(request);
@@ -66,7 +67,7 @@ export default class Api {
   }
 
   list(listId, callback) {
-    return this.browser.get("http://www.ah.nl/service/rest/shoppinglists/"+listId,
+    this.browser.get("http://www.ah.nl/service/rest/shoppinglists/"+listId,
         (error, response, body) => {
           assert(!error & response.statusCode === 200);
 
@@ -80,6 +81,27 @@ export default class Api {
                 return product;
             }).value()
           );
+        });
+  }
+
+  listLists(callback) {
+    this.browser.get("http://www.ah.nl/lijstjes",
+        (error, response, body) => {
+          assert(!error & response.statusCode === 200);
+
+          jsdom.env(body, ["http://code.jquery.com/jquery.js"], (err, window) => {
+            let result = [];
+            window.$("a.product").each(function(i, card) {
+              let name = card.querySelector("h2").innerHTML.replace(/\u00AD/g, '');
+              let id = _.tail(card.getAttribute("href").split(/=/g));
+
+              result.push({
+                name: name,
+                id: id
+              });
+            });
+            callback(result);
+          });
         });
   }
 
