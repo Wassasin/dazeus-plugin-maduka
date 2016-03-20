@@ -1,10 +1,10 @@
-import Zombie from 'zombie';
+import request from 'request';
 import assert from 'assert';
 import _ from 'lodash';
 
 export default class Api {
   constructor() {
-    this.browser = new Zombie();
+    this.browser = request.defaults({jar: true});;
   }
 
   parseProduct(product) {
@@ -17,58 +17,76 @@ export default class Api {
     };
   }
 
-  search(what) {
-    console.log('Search: ', what);
-    return this.browser.fetch("http://www.ah.nl/service/rest/zoeken?rq="+what)
-      .then(function(response) {
-        console.log("Status code:", response.status);
-        assert(response.status === 200);
+  login(username, password, callback) {
+    this.browser.post(
+        {
+          url: 'https://www.ah.nl/mijn/inloggen/basis',
+          form: {
+            userName: username,
+            password: password
+          }
+        },
+        (error, response, body) => {
+          assert(!error & response.statusCode === 200);
+          assert(body.search("ingelogdSso") !== -1);
 
-        return response.text();
-      })
-      .then(text => {
-        let lanes = JSON.parse(text)._embedded.lanes;
-        let searchLane = _.find(lanes, x => x.type === 'SearchLane');
-
-        if(searchLane === undefined)
-          return [];
-
-        let items = searchLane._embedded.items;
-
-        return _.chain(items)
-          .filter(x => x.type === 'Product')
-          .map(x => this.parseProduct(x._embedded.product)).value();
-      });
-  }
-
-  shoppinglist() {
-    console.log('Shopping list');
-    return this.browser.fetch("http://www.ah.nl/service/rest/mijnlijst")
-      .then(function(response) {
-        console.log("Status code:", response.status);
-        assert(response.status === 200);
-
-        return response.text();
-      })
-      .then(text => {
-        let lanes = JSON.parse(text)._embedded.lanes;
-        let shoppingLane = _.find(lanes, x => x.type === 'ShoppingLane');
-
-        if(shoppingLane === undefined) {
-          assert("Shopping list empty or not logged in")
-          return [];
-        }
-
-        let items = shoppingLane._embedded.items;
-        let quantity = items._embedded.listItem.quantity;
-
-        return _.chain(items)
-          .filter(x => x.type === 'Product')
-          .map(x => {
-              this.parseProduct(x._embedded.product).value();
-              this.quantity = quantity.value();
+          this.browser.get('https://www.ah.nl/mijn/ingelogdSso',
+            (error, response, body) => {
+              assert(!error & response.statusCode === 200);
+              console.log("Logged in for " + username);
+              callback();
             });
-      });
+        });
   }
 
+  search(what, callback) {
+    console.log('Search:', what);
+    return this.browser.get('http://www.ah.nl/service/rest/zoeken?rq='+what,
+        (error, response, body) => {
+          assert(!error & response.statusCode === 200);
+
+          let lanes = JSON.parse(body)._embedded.lanes;
+          let searchLane = _.find(lanes, x => x.type === 'SearchLane');
+
+          if(searchLane === undefined)
+          {
+            callback([]);
+            return;
+          }
+
+          let items = searchLane._embedded.items;
+
+          callback(
+            _.chain(items)
+              .filter(x => x.type === 'Product')
+              .map(x => this.parseProduct(x._embedded.product)).value()
+          );
+        });
+  }
+
+  shoppinglist(callback) {
+    console.log('Shopping list');
+    return this.browser.get("http://www.ah.nl/service/rest/mijnlijst",
+        (error, response, body) => {
+          assert(!error & response.statusCode === 200);
+
+          let lanes = JSON.parse(body)._embedded.lanes;
+          let shoppingLane = _.find(lanes, x => x.type === 'ShoppingListLane');
+
+          if(shoppingLane === undefined) {
+            callback([]);
+            return;
+          }
+
+          callback(
+            _.chain(shoppingLane._embedded.items)
+              .filter(x => x.type === 'Product')
+              .map(x => {
+                let product = this.parseProduct(x._embedded.product);
+                product.quantity = x._embedded.listItem.quantity;
+                return product;
+            }).value()
+          );
+        });
+  }
 };

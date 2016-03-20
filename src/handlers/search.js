@@ -5,7 +5,7 @@ import _ from 'lodash';
 export default function search(args, origin, reply) {
   let api = new Api();
   let what = args.join(' ');
-  api.search(what).then(products => {
+  api.search(what, products => {
     products = _.filter(products, x => x.available);
 
     if(products.length > 10) {

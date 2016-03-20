@@ -21,8 +21,8 @@
     "dazeus": "^0.7.1",
     "dazeus-util": "^0.7.0",
     "lodash": "^4.6.1",
-    "zombie": "^4.2.1",
-    "node-persist": "0.0.10"
+    "node-persist": "0.0.10",
+    "request": "^2.69.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
