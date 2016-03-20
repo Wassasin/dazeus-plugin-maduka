@@ -1,4 +1,4 @@
-import storage from '../storage';
+import * as storage from '../storage';
 
 export default function list(args, reply) {
   reply("Currently listing: " + storage.getList().join(', '));

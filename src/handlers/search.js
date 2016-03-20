@@ -1,4 +1,4 @@
-import storage from '../storage';
+import * as storage from '../storage';
 import Api from '../api';
 import _ from 'lodash';
 

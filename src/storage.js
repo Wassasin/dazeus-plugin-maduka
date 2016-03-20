@@ -1,4 +1,4 @@
-import storage from 'node-persist';
+import store from 'node-persist';
 import _ from 'lodash';
 
 const ITEM_LIST = 'items';
@@ -8,12 +8,12 @@ function defaultVal(val, def) {
 }
 
 export function addToList(item) {
-  let items = defaultVal(storage.getItemSync(ITEM_LIST), []);
+  let items = defaultVal(store.getItemSync(ITEM_LIST), []);
 
   items.push(item);
-  storage.setItemSync(ITEM_LIST, items);
+  store.setItemSync(ITEM_LIST, items);
 }
 
 export function getList() {
-  return defaultVal(storage.getItemSync(ITEM_LIST), []);
+  return defaultVal(store.getItemSync(ITEM_LIST), []);
 }
