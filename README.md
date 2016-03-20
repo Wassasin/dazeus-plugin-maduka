@@ -8,3 +8,6 @@ Start the project with `bin/gulp run` or run the plugin directly using
 To watch for changes and automatically restart the plugin when a change in the
 sources occurs use `bin/gulp watch`. To optionally pass command line arguments
 use the alternative `bin/watch`.
+
+Before running the command use `cp config.json.default config.json` to create
+a personalized configuration.
