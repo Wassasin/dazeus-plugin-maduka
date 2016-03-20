@@ -29,8 +29,8 @@ syntax: `}ah remove [index]`
 Removes item with index [index] from the local list.
 
 ### Import
-syntax: `}ah import [num]`  
-Imports the shopping list with id [num] into the local list.
+syntax: `}ah import [id]`  
+Imports the shopping list labeled [id] into the local list.
 
 ### List
 syntax: `}ah list`  
