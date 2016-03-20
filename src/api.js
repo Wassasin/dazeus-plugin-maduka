@@ -15,7 +15,8 @@ export default class Api {
       name: product.description.replace(/\u00AD/g, ''), //Remove soft hyphen
       unit: product.unitSize,
       available: product.availability.orderable,
-      price: product.priceLabel.now
+      price: product.priceLabel.now,
+      discount: (product.discount !== undefined)
     };
   }
 
