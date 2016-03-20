@@ -17,9 +17,12 @@ export default function search(args, origin, reply) {
 
     setSearch(origin, products);
 
+    let i = 0;
+
     _.chain(products)
       .slice(0, 10)
-      .map(x => x.id + " " + x.price + " " + x.name + " (" + x.unit + ")")
+      .map(x => i++ + ": " + x.id + " " + x.price + " " + x.name + " (" 
+                + x.unit + ")")
       .each(x => reply(x))
       .value();
   });
