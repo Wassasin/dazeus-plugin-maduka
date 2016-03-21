@@ -31,11 +31,12 @@ export default function add(args, origin, reply) {
     index = named_indices[index];
   } else {
     index = parseInt(index, 10);
-    if (index > 0) {
-      index -= 1;
-    } else if (index < 0) {
-      index = total + index;
-    }
+  }
+
+  if (index > 0) {
+    index -= 1;
+  } else if (index < 0) {
+    index = total + index;
   }
 
   let total = getResultCount(origin);
