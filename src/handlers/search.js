@@ -5,7 +5,7 @@ import {setSearch} from '../searches';
 import {printProduct} from '../util';
 import util from 'util';
 
-export default function search(args, origin, reply) {
+export default function search(args, origin, reply, done) {
   let api = new Api();
   let what = args.join(' ');
   api.search(what, products => {
@@ -26,5 +26,6 @@ export default function search(args, origin, reply) {
       .map((x, idx) => util.format("[%s] %s", idx + 1, printProduct(x)))
       .each(x => reply(x))
       .value();
+    done();
   });
 }

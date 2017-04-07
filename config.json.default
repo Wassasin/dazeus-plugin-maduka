@@ -3,5 +3,9 @@
   "username": "",
   "password": "",
   "debug": true,
-  "language": "nl-nl"
+  "language": "nl-nl",
+  "mattermost": {
+    "listen_port": 8080,
+    "token": ""
+  }
 }

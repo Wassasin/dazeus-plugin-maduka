@@ -3,21 +3,23 @@ import Api from '../api.js';
 import config from '../../config.json';
 import _ from 'lodash';
 
-export default function importlist(args, origin, reply) {
+export default function importlist(args, origin, reply, done) {
   let api = new Api();
   if(args.length == 0) {
-    reply("Please specify which list to import. i.e. }ah import lijstnaam (use 'current' for shopping basket)");
+    reply("Please specify which list to import. i.e. _cmd_ import lijstnaam (use 'current' for shopping basket)");
+    done();
     return;
   }
   let list = { name: args.join(" ") };
 
   api.login(config.username, config.password, () => {
-    let import_f = (list => {
+    const import_f = list => {
       api.list(list.id, products => {
         _.each(products, storage.addToList);
         reply("Imported " + products.length + " products from list " + list.name + " [id: "+ list.id + "]");
+        done();
       });
-    });
+    };
 
     if(list.name === "current")
     {
@@ -31,6 +33,7 @@ export default function importlist(args, origin, reply) {
 
         if(candidate === undefined) {
           reply("List " + list.name + " not found");
+          done();
           return;
         }
 

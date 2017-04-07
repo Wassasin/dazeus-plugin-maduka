@@ -4,9 +4,10 @@ import {printProduct} from '../util';
 import util from 'util';
 import _ from 'lodash';
 
-export default function remove(args, origin, reply) {
+export default function remove(args, origin, reply, done) {
   if (args.length === 0) {
     reply("Please indicate which item on the list you want to remove");
+    done();
     return;
   }
 
@@ -28,4 +29,5 @@ export default function remove(args, origin, reply) {
   } else {
     reply("This product was not found on the list");
   }
+  done();
 }

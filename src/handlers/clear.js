@@ -1,7 +1,7 @@
 import * as storage from '../storage';
 import util from 'util';
 
-export default function clear(args, origin, reply) {
+export default function clear(args, origin, reply, done) {
   let itemcount = storage.getList().length;
   storage.clearList();
   if (itemcount === 0) {
@@ -9,4 +9,5 @@ export default function clear(args, origin, reply) {
   } else {
     reply(util.format("Had %s items in the shopping cart, but they're gone now", itemcount));
   }
+  done();
 }

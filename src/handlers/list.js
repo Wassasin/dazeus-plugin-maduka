@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 const MAX_MESSAGE_LEN = 400;
 
-export default function list(args, origin, reply) {
+export default function list(args, origin, reply, done) {
   let messages = [];
 
   let total_price = _.reduce(storage.getList(), (acc, product) => {
@@ -38,4 +38,5 @@ export default function list(args, origin, reply) {
   ));
 
   messages.forEach(m => reply(m));
+  done();
 }

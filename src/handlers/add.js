@@ -6,9 +6,10 @@ import named_indices from '../named_index';
 import _ from 'lodash';
 import {printProduct} from '../util';
 
-export default function add(args, origin, reply) {
+export default function add(args, origin, reply, done) {
   if (args.length === 0) {
     reply("Which product do you want to add from the latest search?");
+    done();
     return;
   }
 
@@ -50,4 +51,5 @@ export default function add(args, origin, reply) {
   } else {
     reply("No results available to choose from");
   }
+  done();
 }

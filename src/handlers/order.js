@@ -3,7 +3,7 @@ import Api from '../api.js';
 import config from '../../config.json';
 import _ from 'lodash';
 
-export default function order(args, origin, reply) {
+export default function order(args, origin, reply, done) {
   let api = new Api();
   api.login(config.username, config.password, () => {
     api.list(0, products => {
@@ -26,10 +26,12 @@ export default function order(args, origin, reply) {
             });
           })).then(() => {
             reply("Submitted " + list.length + " product(s) to http://www.ah.nl/mijnlijst");
+            done();
           });
         },
         () => {
           reply("Something went wrong when submitting");
+          done();
         }
       );
     });
